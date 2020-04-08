@@ -992,6 +992,9 @@ func ReadZipReader(r *zip.Reader, options ...FileOption) (*File, error) {
 	worksheets = make(map[string]*zip.File, len(r.File))
 	worksheetRels = make(map[string]*zip.File, len(r.File))
 	for _, v = range r.File {
+		if ! strings.HasPrefix(v.Name, "xl/") {
+			v.Name = "xl/" + v.Name
+		}
 		switch v.Name {
 		case "xl/sharedStrings.xml" , `xl\sharedStrings.xml`:
 			sharedStrings = v
